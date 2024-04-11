@@ -1,0 +1,21 @@
+version: '3.8'
+name: oracle
+
+services:
+  oracle-db:
+    image: gvenzl/oracle-free:latest
+    container_name: movie_database_oracle
+    ports:
+      - "1521:1521"
+    environment:
+        ORACLE_ALLOW_REMOTE: true
+        ORACLE_DB: movie-db
+        ORACLE_USER: admin
+        ORACLE_PASSWORD: 123456
+    volumes:
+      - movie_data:/var/lib/oracle/data
+    restart: unless-stopped
+
+volumes:
+  movie_data:
+
