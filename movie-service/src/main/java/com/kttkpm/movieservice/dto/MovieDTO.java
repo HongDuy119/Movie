@@ -2,15 +2,9 @@ package com.kttkpm.movieservice.dto;
 
 import com.kttkpm.movieservice.model.ActorEntity;
 import com.kttkpm.movieservice.model.MovieEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
 import java.util.List;
 
 @Data

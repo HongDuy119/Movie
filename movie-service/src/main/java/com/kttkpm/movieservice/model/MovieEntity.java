@@ -3,11 +3,11 @@ package com.kttkpm.movieservice.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.kttkpm.movieservice.until.Constants;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;

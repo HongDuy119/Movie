@@ -8,24 +8,21 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.Tuple;
-import javax.persistence.TupleElement;
+import javax.persistence.*;
+
+import lombok.RequiredArgsConstructor;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional
+@RequiredArgsConstructor
 public class CommonDataBaseRepository {
-    @PersistenceContext
-    private EntityManager entityManager;
-    private static final Logger LOGGER = Logger.getLogger(CommonDataBaseRepository.class);
 
-    public CommonDataBaseRepository() {
-    }
+    @PersistenceContext
+    EntityManager entityManager;
+    private static final Logger LOGGER = Logger.getLogger(CommonDataBaseRepository.class);
 
     public List<? extends Object> getListData_Core(StringBuilder queryString, List<Object> arrParams, Integer startPage, Integer pageLoad) {
         Query query = this.entityManager.createNativeQuery(queryString.toString(), Tuple.class);
@@ -63,19 +60,11 @@ public class CommonDataBaseRepository {
 
             StringBuilder sqlPage = new StringBuilder();
             if (databaseIsOracle && startPage != null && pageLoad != null) {
-                strVersionOracle = FunctionCommon.getPropertiesValue("oracle.version");
-                if (strVersionOracle.trim().equals("11")) {
-                    sqlPage.append(" SELECT * FROM ( SELECT a.*, rownum r__  FROM (");
-                    sqlPage.append(queryString.toString());
-                    sqlPage.append(" ) a ) ");
-                    sqlPage.append(String.format(" WHERE r__ > %d", startPage));
-                    sqlPage.append(String.format(" and r__ <= %d", startPage + pageLoad));
-                } else {
-                    sqlPage.append(" SELECT * FROM ( ");
-                    sqlPage.append(queryString.toString());
-                    sqlPage.append(" ) a ");
-                    sqlPage.append(String.format("  OFFSET %d ROWS FETCH NEXT %d ROWS ONLY ", startPage, pageLoad));
-                }
+                sqlPage.append(" SELECT * FROM ( SELECT a.*, rownum r__  FROM (");
+                sqlPage.append(queryString.toString());
+                sqlPage.append(" ) a ) ");
+                sqlPage.append(String.format(" WHERE r__ > %d", startPage));
+                sqlPage.append(String.format(" and r__ <= %d", startPage + pageLoad));
             } else {
                 sqlPage = queryString;
             }
@@ -120,19 +109,11 @@ public class CommonDataBaseRepository {
 
             StringBuilder sqlPage = new StringBuilder();
             if (databaseIsOracle && startPage != null && pageLoad != null) {
-                strVersionOracle = FunctionCommon.getPropertiesValue("oracle.version");
-                if (strVersionOracle.trim().equals("11")) {
-                    sqlPage.append(" SELECT * FROM ( SELECT a.*, rownum r__  FROM (");
-                    sqlPage.append(queryString.toString());
-                    sqlPage.append(" ) a ) ");
-                    sqlPage.append(String.format(" WHERE r__ > %d", startPage));
-                    sqlPage.append(String.format(" and r__ <= %d", startPage + pageLoad));
-                } else {
-                    sqlPage.append(" SELECT * FROM ( ");
-                    sqlPage.append(queryString.toString());
-                    sqlPage.append(" ) a ");
-                    sqlPage.append(String.format("  OFFSET %d ROWS FETCH NEXT %d ROWS ONLY ", startPage, pageLoad));
-                }
+                sqlPage.append(" SELECT * FROM ( SELECT a.*, rownum r__  FROM (");
+                sqlPage.append(queryString.toString());
+                sqlPage.append(" ) a ) ");
+                sqlPage.append(String.format(" WHERE r__ > %d", startPage));
+                sqlPage.append(String.format(" and r__ <= %d", startPage + pageLoad));
             } else {
                 sqlPage = queryString;
             }
@@ -198,19 +179,11 @@ public class CommonDataBaseRepository {
 
             StringBuilder sqlPage = new StringBuilder();
             if (databaseIsOracle && startPage != null && pageLoad != null) {
-                strVersionOracle = FunctionCommon.getPropertiesValue("oracle.version");
-                if (strVersionOracle.trim().equals("11")) {
-                    sqlPage.append(" SELECT * FROM ( SELECT a.*, rownum r__  FROM (");
-                    sqlPage.append(queryString.toString());
-                    sqlPage.append(" ) a ) ");
-                    sqlPage.append(String.format(" WHERE r__ > %d", startPage));
-                    sqlPage.append(String.format(" and r__ <= %d", startPage + pageLoad));
-                } else {
-                    sqlPage.append(" SELECT * FROM ( ");
-                    sqlPage.append(queryString.toString());
-                    sqlPage.append(" ) a ");
-                    sqlPage.append(String.format("  OFFSET %d ROWS FETCH NEXT %d ROWS ONLY ", startPage, pageLoad));
-                }
+                sqlPage.append(" SELECT * FROM ( SELECT a.*, rownum r__  FROM (");
+                sqlPage.append(queryString.toString());
+                sqlPage.append(" ) a ) ");
+                sqlPage.append(String.format(" WHERE r__ > %d", startPage));
+                sqlPage.append(String.format(" and r__ <= %d", startPage + pageLoad));
             } else {
                 sqlPage = queryString;
             }
@@ -258,19 +231,12 @@ public class CommonDataBaseRepository {
 
             StringBuilder sqlPage = new StringBuilder();
             if (databaseIsOracle && startPage != null && pageLoad != null) {
-                strVersionOracle = FunctionCommon.getPropertiesValue("oracle.version");
-                if (strVersionOracle.trim().equals("11")) {
-                    sqlPage.append(" SELECT * FROM ( SELECT a.*, rownum r__  FROM (");
-                    sqlPage.append(queryString.toString());
-                    sqlPage.append(" ) a ) ");
-                    sqlPage.append(String.format(" WHERE r__ > %d", startPage));
-                    sqlPage.append(String.format(" and r__ <= %d", startPage + pageLoad));
-                } else {
-                    sqlPage.append(" SELECT * FROM ( ");
-                    sqlPage.append(queryString.toString());
-                    sqlPage.append(" ) a ");
-                    sqlPage.append(String.format("  OFFSET %d ROWS FETCH NEXT %d ROWS ONLY ", startPage, pageLoad));
-                }
+                sqlPage.append(" SELECT * FROM ( SELECT a.*, rownum r__  FROM (");
+                sqlPage.append(queryString.toString());
+                sqlPage.append(" ) a ) ");
+                sqlPage.append(String.format(" WHERE r__ > %d", startPage));
+                sqlPage.append(String.format(" and r__ <= %d", startPage + pageLoad));
+
             } else {
                 sqlPage = queryString;
             }
@@ -397,19 +363,11 @@ public class CommonDataBaseRepository {
 
             StringBuilder sqlPage = new StringBuilder();
             if (databaseIsOracle && startPage != null && pageLoad != null) {
-                strVersionOracle = FunctionCommon.getPropertiesValue("oracle.version");
-                if (strVersionOracle.trim().equals("11")) {
-                    sqlPage.append(" SELECT * FROM ( SELECT a.*, rownum r__  FROM (");
-                    sqlPage.append(queryString.toString());
-                    sqlPage.append(" ) a ) ");
-                    sqlPage.append(String.format(" WHERE r__ > %d", startPage));
-                    sqlPage.append(String.format(" and r__ <= %d", startPage + pageLoad));
-                } else {
-                    sqlPage.append(" SELECT * FROM ( ");
-                    sqlPage.append(queryString.toString());
-                    sqlPage.append(" ) a ");
-                    sqlPage.append(String.format("  OFFSET %d ROWS FETCH NEXT %d ROWS ONLY ", startPage, pageLoad));
-                }
+                sqlPage.append(" SELECT * FROM ( SELECT a.*, rownum r__  FROM (");
+                sqlPage.append(queryString.toString());
+                sqlPage.append(" ) a ) ");
+                sqlPage.append(String.format(" WHERE r__ > %d", startPage));
+                sqlPage.append(String.format(" and r__ <= %d", startPage + pageLoad));
             } else {
                 sqlPage = queryString;
             }
@@ -467,19 +425,12 @@ public class CommonDataBaseRepository {
 
             StringBuilder sqlPage = new StringBuilder();
             if (databaseIsOracle && startPage != null && pageLoad != null) {
-                strVersionOracle = FunctionCommon.getPropertiesValue("oracle.version");
-                if (strVersionOracle.trim().equals("11")) {
-                    sqlPage.append(" SELECT * FROM ( SELECT a.*, rownum r__  FROM (");
-                    sqlPage.append(queryString.toString());
-                    sqlPage.append(" ) a ) ");
-                    sqlPage.append(String.format(" WHERE r__ > %d", startPage));
-                    sqlPage.append(String.format(" and r__ <= %d", startPage + pageLoad));
-                } else {
-                    sqlPage.append(" SELECT * FROM ( ");
-                    sqlPage.append(queryString.toString());
-                    sqlPage.append(" ) a ");
-                    sqlPage.append(String.format("  OFFSET %d ROWS FETCH NEXT %d ROWS ONLY ", startPage, pageLoad));
-                }
+                sqlPage.append(" SELECT * FROM ( SELECT a.*, rownum r__  FROM (");
+                sqlPage.append(queryString.toString());
+                sqlPage.append(" ) a ) ");
+                sqlPage.append(String.format(" WHERE r__ > %d", startPage));
+                sqlPage.append(String.format(" and r__ <= %d", startPage + pageLoad));
+
             } else {
                 sqlPage = queryString;
             }

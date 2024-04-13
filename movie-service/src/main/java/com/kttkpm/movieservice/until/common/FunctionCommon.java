@@ -10,7 +10,7 @@ import javax.persistence.Tuple;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 
-import static jdk.xml.internal.SecuritySupport.getResourceBundle;
+//import static jdk.xml.internal.SecuritySupport.getResourceBundle;
 
 public class FunctionCommon {
 
@@ -27,9 +27,6 @@ public class FunctionCommon {
             LOGGER.error("Loi! getResourceBundle: " + var1.getMessage());
             return null;
         }
-    }
-    public static String getPropertiesValue(String key) {
-        return RESOURCE_BUNDLE.containsKey(key) ? RESOURCE_BUNDLE.getString(key) : "";
     }
 
     public static List<?> convertToEntity(List<Tuple> input, Class<?> dtoClass) {

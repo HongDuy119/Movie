@@ -11,8 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/movie")
-@CrossOrigin
+@RequestMapping("/api/v1/movies")
+//@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class MovieController {
 
     @Autowired
@@ -24,11 +25,18 @@ public class MovieController {
         return new ResponseEntity<>(movieService.create(movie), HttpStatus.OK);
     }
 
+
+    @GetMapping(value = "/getAll")
+    public ResponseEntity<Object> getAll(@RequestParam String state)
+    {
+        return new ResponseEntity<>(movieService.getAllMovies(), HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/search", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> getAll(SearchMovieDTO dataParams)
     {
         Object resultObj = movieService.searchTreeInfo(dataParams);
-        return new ResponseEntity<>(movieService.getAllMovies(), HttpStatus.OK);
+        return new ResponseEntity<>(resultObj, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
