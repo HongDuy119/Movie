@@ -3,9 +3,7 @@ package com.kttkpm.movieservice.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.kttkpm.movieservice.until.Constants;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -17,6 +15,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "MOVIE")
+@Getter
+@Setter
 public class MovieEntity {
 
 

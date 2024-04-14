@@ -4,7 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kttkpm.movieservice.dto.CoreErrorApp;
+import com.kttkpm.movieservice.dto.MessEntity;
+import com.kttkpm.movieservice.dto.ResponseEntity;
 import org.apache.log4j.Logger;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 
 import javax.persistence.Tuple;
 import java.util.*;
@@ -49,5 +53,52 @@ public class FunctionCommon {
             }
         });
         return arrayList;
+    }
+
+    public static Object responseToClient(Authentication req, Object itemObject) {
+        ResponseEntity responseEntity = new ResponseEntity();
+        CoreErrorApp errorApp;
+        if (itemObject == null) {
+            errorApp = CoreErrorApp.DATAEMTY;
+        } else {
+            errorApp = CoreErrorApp.SUCCESS;
+            responseEntity.setData(itemObject);
+        }
+
+        MessEntity itemEntity = new MessEntity();
+        itemEntity.setCode(errorApp.getCode());
+        itemEntity.setDescription(errorApp.getDescription());
+        responseEntity.setMess(itemEntity);
+        return responseEntity;
+    }
+
+    public static Object responseToClient(Object itemObject) {
+        ResponseEntity responseEntity = new ResponseEntity();
+        CoreErrorApp errorApp;
+        if (itemObject == null) {
+            errorApp = CoreErrorApp.DATAEMTY;
+        } else {
+            errorApp = CoreErrorApp.SUCCESS;
+            responseEntity.setData(itemObject);
+        }
+
+        MessEntity itemEntity = new MessEntity();
+        itemEntity.setCode(errorApp.getCode());
+        itemEntity.setDescription(errorApp.getDescription());
+        responseEntity.setMess(itemEntity);
+        return responseEntity;
+    }
+
+    public static Object responseToClient(CoreErrorApp errorApp, Object itemObject) {
+        ResponseEntity responseEntity = new ResponseEntity();
+        if (itemObject != null) {
+            responseEntity.setData(itemObject);
+        }
+
+        MessEntity itemEntity = new MessEntity();
+        itemEntity.setCode(errorApp.getCode());
+        itemEntity.setDescription(errorApp.getDescription());
+        responseEntity.setMess(itemEntity);
+        return responseEntity;
     }
 }

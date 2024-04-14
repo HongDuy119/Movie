@@ -4,6 +4,7 @@ package com.kttkpm.movieservice.controller;
 import com.kttkpm.movieservice.dto.SearchMovieDTO;
 import com.kttkpm.movieservice.model.MovieEntity;
 import com.kttkpm.movieservice.service.MovieService;
+import com.kttkpm.movieservice.until.common.FunctionCommon;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -36,7 +37,7 @@ public class MovieController {
     public ResponseEntity<Object> getAll(SearchMovieDTO dataParams)
     {
         Object resultObj = movieService.searchTreeInfo(dataParams);
-        return new ResponseEntity<>(resultObj, HttpStatus.OK);
+        return new ResponseEntity<>(FunctionCommon.responseToClient(resultObj), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
