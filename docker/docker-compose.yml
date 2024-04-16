@@ -6,7 +6,7 @@ services:
     image: container-registry.oracle.com/database/free
     container_name: movie_database_oracle
     ports:
-      - "1521:1521"
+      - "11521:11521"
     environment:
         ORACLE_ALLOW_REMOTE: true
         ORACLE_DB: movie-db

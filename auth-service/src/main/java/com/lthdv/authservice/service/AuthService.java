@@ -35,8 +35,8 @@ public class AuthService {
         Account account = request.getAccount();
         account.setPassword(passwordEncoder.encode(account.getPassword()));
 
-        Customer savedCustomer = saveCustomer(request.getCustomer());
-        account.setCustomerId(savedCustomer.getId());
+//        Customer savedCustomer = saveCustomer(request.getCustomer());
+//        account.setCustomerId(savedCustomer.getId());
 
         Account savedAccount = accountRepository.save(account);
         return accountMapper.accountToAccountResponse(savedAccount);

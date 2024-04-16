@@ -1,9 +1,7 @@
 package com.kttkpm.movieservice.controller;
 
 import com.kttkpm.movieservice.model.ActorEntity;
-import com.kttkpm.movieservice.model.MovieEntity;
 import com.kttkpm.movieservice.service.ActorService;
-import com.kttkpm.movieservice.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +15,7 @@ public class ActorController {
     @Autowired
     ActorService actorService;
 
+//    @RolesAllowed({"ROLE_VIEWER"})
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ResponseEntity<Object> create(@RequestBody ActorEntity actor)
     {
