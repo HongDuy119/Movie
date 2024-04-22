@@ -43,11 +43,11 @@ public class MovieEntity {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.COMMON_DATE_FORMAT, locale = Constants.LOCALE_VN, timezone = Constants.TIMEZONE_VN)
     private Date createDate;
 
-    private String urlImg;
-
     private Long runningTime;
 
     private Long status;
 
     private Long state;
+
+    private String urlPoster;
 }

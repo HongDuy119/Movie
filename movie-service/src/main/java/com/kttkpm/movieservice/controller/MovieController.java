@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.security.RolesAllowed;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/movies")
@@ -23,17 +24,17 @@ public class MovieController {
     @Autowired
     MovieService movieService;
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public ResponseEntity<Object> create(@RequestBody MovieEntity movie,@RequestParam MultipartFile poster)
+    @RequestMapping(value = "/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Object> create(@RequestPart(value = "dataParams") MovieEntity dataParams, @RequestPart(value = "poster", required = false) MultipartFile poster)
     {
-        return new ResponseEntity<>(movieService.create(movie), HttpStatus.OK);
+        return new ResponseEntity<>(movieService.create(dataParams, poster), HttpStatus.OK);
     }
 
 
-    @GetMapping(value = "/getAll")
-    public ResponseEntity<Object> getAll(@RequestParam String state)
+    @GetMapping(value = "/all")
+    public ResponseEntity<Object> getAll()
     {
-        return new ResponseEntity<>(movieService.getAllMovies(), HttpStatus.OK);
+        return new ResponseEntity<>(FunctionCommon.responseToClient(movieService.getAllMovies()), HttpStatus.OK);
     }
 
 
@@ -48,6 +49,12 @@ public class MovieController {
     public ResponseEntity<Object> getById(@PathVariable Long id)
     {
         return new ResponseEntity<>(movieService.getMovieById(id), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Object> deleteById(@PathVariable Long id)
+    {
+        return new ResponseEntity<>(FunctionCommon.responseToClient(movieService.deleteById(id)), HttpStatus.OK);
     }
 
 //    @RequestMapping(value = "/{id}", method = RequestMethod.GET)

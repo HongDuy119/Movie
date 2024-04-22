@@ -9,8 +9,14 @@ import com.kttkpm.movieservice.dto.MessEntity;
 import com.kttkpm.movieservice.dto.ResponseEntity;
 import org.apache.log4j.Logger;
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Tuple;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 
@@ -18,11 +24,34 @@ import java.util.concurrent.ExecutorService;
 
 public class FunctionCommon {
 
+    private static final Path CURRENT_FOLDER = Paths.get(System.getProperty("user.dir"));
+
     private static final Logger LOGGER = Logger.getLogger(FunctionCommon.class);
     private static final ResourceBundle RESOURCE_BUNDLE = getResourceBundle();
     private static ExecutorService executorService;
 
     public static String CONFIGFILEPROPERTIES = "application";
+
+    public static String convertFileToFolder(MultipartFile images) throws IOException, IOException {
+        Path staticPath = Paths.get("static");
+
+        Path imagePath = Paths.get("images");
+        if (!Files.exists(CURRENT_FOLDER.resolve(staticPath).resolve(imagePath))) {
+            Files.createDirectories(CURRENT_FOLDER.resolve(staticPath).resolve(imagePath));
+        }
+        Path file = CURRENT_FOLDER.resolve(staticPath)
+                .resolve(imagePath).resolve(images.getOriginalFilename());
+        if (Files.exists(file)) {
+            // Xử lý tệp tin đã tồn tại ở đây
+            return "images\\"+file.toString().substring(file.toString().lastIndexOf("\\")+1);
+        } else {
+            // Ghi dữ liệu tệp tin mới
+            try (OutputStream os = Files.newOutputStream(file)) {
+                os.write(images.getBytes());
+            }
+        }
+        return imagePath.resolve(images.getOriginalFilename()).toString();
+    }
 
     private static ResourceBundle getResourceBundle() {
         try {
