@@ -24,8 +24,10 @@ public class AuthController {
 
     @PostMapping("/login")
     public Object login(@RequestBody AuthRequest authRequest) {
+        System.out.println(authRequest.getUsername());
         Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
         if (authenticate.isAuthenticated()) {
+            System.out.println("11");
             return authService.login(authRequest.getUsername());
         } else {
             throw new RuntimeException("invalid access");

@@ -14,9 +14,9 @@ public class MovieDTO extends MovieEntity {
     private List<ActorEntity> actors;
 
     public MovieDTO(MovieEntity movie,List<ActorEntity> actors) {
-        super(movie.getId(), movie.getTitle(), movie.getDirector(), movie.getGenre(), movie.getDescription(),
-                movie.getCreateUser(),movie.getCreateAt(), movie.getUpdateAt(), movie.getUrlImg(), movie.getStatus());
-        this.actors = actors;
+//        super(movie.getId(), movie.getTitle(), movie.getDirector(), movie.getGenre(), movie.getDescription(),
+//                movie.getCreateUser(),movie.getc(), movie.getUpdateAt(), movie.getUrlImg(), movie.getStatus());
+//        this.actors = actors;
     }
 
 }

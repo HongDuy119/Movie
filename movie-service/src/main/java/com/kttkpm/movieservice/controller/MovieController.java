@@ -10,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.annotation.security.RolesAllowed;
 
 @RestController
 @RequestMapping("/api/v1/movies")
@@ -21,7 +24,7 @@ public class MovieController {
     MovieService movieService;
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public ResponseEntity<Object> create(@RequestBody MovieEntity movie)
+    public ResponseEntity<Object> create(@RequestBody MovieEntity movie,@RequestParam MultipartFile poster)
     {
         return new ResponseEntity<>(movieService.create(movie), HttpStatus.OK);
     }
@@ -32,6 +35,7 @@ public class MovieController {
     {
         return new ResponseEntity<>(movieService.getAllMovies(), HttpStatus.OK);
     }
+
 
     @RequestMapping(value = "/search", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> getAll(SearchMovieDTO dataParams)

@@ -35,13 +35,19 @@ public class MovieEntity {
 
     private String createUser;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.COMMON_DATE_FORMAT, locale = Constants.LOCALE_VN, timezone = Constants.TIMEZONE_VN)
-    private Date createAt;
+    private String urlTrailer;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.COMMON_DATE_FORMAT, locale = Constants.LOCALE_VN, timezone = Constants.TIMEZONE_VN)
-    private Date updateAt;
+    private Date releaseDate;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.COMMON_DATE_FORMAT, locale = Constants.LOCALE_VN, timezone = Constants.TIMEZONE_VN)
+    private Date createDate;
 
     private String urlImg;
 
+    private Long runningTime;
+
     private Long status;
+
+    private Long state;
 }
